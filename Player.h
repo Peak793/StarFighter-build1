@@ -3,11 +3,16 @@
 #include<SFML/Graphics.hpp>
 class Player {
 public:
+	sf::Sprite pSprite;
+	int hp;
+	int hpmax;
 	Player() {
 		//Default
 	}
 	Player(std::string imgDirectory, sf::IntRect &a)
 	{
+		this->hpmax = 5;
+		this->hp = this->hpmax;
 		if (!pTexture.loadFromFile(imgDirectory))
 		{
 			std::cerr << "Error\n";
@@ -47,6 +52,18 @@ public:
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 			pSprite.move(moveSpeed, 0);
 	}
+
+	void checkpos()
+	{
+		if (pSprite.getPosition().x < 32)
+			pSprite.setPosition(32, pSprite.getPosition().y);
+		if (pSprite.getPosition().x > 568)
+			pSprite.setPosition(568, pSprite.getPosition().y);
+		if (pSprite.getPosition().y <32)
+			pSprite.setPosition(pSprite.getPosition().x, 32);
+		if (pSprite.getPosition().y >868)
+			pSprite.setPosition(pSprite.getPosition().x, 868);
+	}
 	
 	void setOrigin()
 	{
@@ -69,6 +86,5 @@ public:
 	}
 private:
 	sf::Texture pTexture;
-	sf::Sprite pSprite;
 	sf::Clock clock;
 };

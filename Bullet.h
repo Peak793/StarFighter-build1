@@ -4,6 +4,7 @@
 #include<SFML/Audio.hpp>
 class Bullet {
 public:
+	std::vector<sf::RectangleShape> bulletvec;
 	Bullet(sf::Vector2f size,std::string bullettexture,std::string sound)
 	{
 		bullet.setSize(size);
@@ -18,7 +19,7 @@ public:
 
 	void fire(int speed,sf::Vector2i &playerpos)
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && a.getElapsedTime().asMilliseconds()>500)
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && a.getElapsedTime().asMilliseconds()>speed)
 		{
 			bullet.setPosition(playerpos.x,playerpos.y-32);
 			bulletvec.push_back(sf::RectangleShape(bullet));
@@ -53,7 +54,6 @@ public:
 private:
 	sf::Texture btex;
 	sf::RectangleShape bullet;
-	std::vector<sf::RectangleShape> bulletvec;
 	sf::Clock a;
 	sf::SoundBuffer buffer;
 	sf::Sound Fsound;
